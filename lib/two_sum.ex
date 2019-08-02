@@ -12,13 +12,13 @@ defmodule TwoSum do
 
   def find_position(numbers, target) do
     numbers
-    |> Enum.with_index
+    |> Enum.with_index()
     |> find_position(target)
   end
 
   defp has_sum([], _, _), do: nil
 
-  defp has_sum([{num2, pos2} | t], num1, target) when num1 + num2 == target, do: pos2
+  defp has_sum([{num2, pos2} | _], num1, target) when num1 + num2 == target, do: pos2
 
   defp has_sum([_ | t], num1, target), do: has_sum(t, num1, target)
 end
