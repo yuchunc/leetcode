@@ -3,8 +3,8 @@ defmodule NoRepeatSubStrLength do
 
   def find(str) do
     str
-    |> String.graphemes
-    |> Enum.reduce([[]], fn(char, acc = [h | t]) ->
+    |> String.graphemes()
+    |> Enum.reduce([[]], fn char, acc = [h | t] ->
       if char in h do
         [[char] | acc]
       else
@@ -12,6 +12,6 @@ defmodule NoRepeatSubStrLength do
       end
     end)
     |> Enum.map(&length/1)
-    |> Enum.max
+    |> Enum.max()
   end
 end
