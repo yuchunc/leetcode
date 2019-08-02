@@ -1,4 +1,5 @@
 defmodule AddTwoNumber do
+  # NOTE Algorithm 2
   def combine(list1, list2) do
     {new_list, _} =
       Enum.zip(list1, list2)

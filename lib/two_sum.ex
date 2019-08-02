@@ -1,4 +1,5 @@
 defmodule TwoSum do
+  # NOTE Algorithm 1
   def find_position([], _), do: :not_found
 
   def find_position([_h | []], _target), do: :not_found
