@@ -8,13 +8,13 @@ defmodule MedianSortedTuple do
     half_size = (size1 + size2 + 1) |> div(2)
 
     if size1 > size2 do
-      do_search(tup2, tup1, 0, size2, half_size)
+      binary_search(tup2, tup1, 0, size2, half_size)
     else
-      do_search(tup1, tup2, 0, size1, half_size)
+      binary_search(tup1, tup2, 0, size1, half_size)
     end
   end
 
-  defp do_search(x, y, x_min, x_max, half_size) do
+  defp binary_search(x, y, x_min, x_max, half_size) do
     x_part =
       if x_min > x_max do
         x_min
@@ -38,10 +38,10 @@ defmodule MedianSortedTuple do
         end
 
       x_l > y_r ->
-        do_search(x, y, x_min, x_part - 1, half_size)
+        binary_search(x, y, x_min, x_part - 1, half_size)
 
       y_l > x_r ->
-        do_search(x, y, x_part + 1, x_max, half_size)
+        binary_search(x, y, x_part + 1, x_max, half_size)
     end
   end
 
