@@ -1,6 +1,57 @@
 defmodule MedianSortedTuple do
   # NOTE Alogorithm 4
 
+  def attempt2(tup1, tup2) do
+    size1 = tuple_size(tup1)
+    size2 = tuple_size(tup2)
+
+    half_size = (size1 + size2 + 1) |> div(2)
+
+    if size1 > size2 do
+      do_search(tup2, tup1, 0, size2, half_size)
+    else
+      do_search(tup1, tup2, 0, size1, half_size)
+    end
+  end
+
+  defp do_search(x, y, x_min, x_max, half_size) do
+    x_part =
+      if x_min > x_max do
+        x_min
+      else
+        div(x_min + x_max, 2)
+      end
+
+    y_part = half_size - x_part
+
+    {x_l, x_r} = get_edge_values(x, x_part)
+
+    {y_l, y_r} = get_edge_values(y, y_part)
+
+    cond do
+      x_l <= y_r and y_l <= x_r ->
+        if rem(tuple_size(x) + tuple_size(y), 2) == 1 do
+          Enum.max([x_l, y_l]) / 1
+        else
+          (Enum.max([x_l, y_l]) + Enum.min([x_r, y_r]))
+          |> Kernel./(2)
+        end
+
+      x_l > y_r ->
+        do_search(x, y, x_min, x_part - 1, half_size)
+
+      y_l > x_r ->
+        do_search(x, y, x_part + 1, x_max, half_size)
+    end
+  end
+
+  defp get_edge_values(tup, 0), do: {-1, elem(tup, 0)}
+  # this is a hack
+  defp get_edge_values(tup, part) when tuple_size(tup) == part,
+    do: {elem(tup, part - 1), :infinite}
+
+  defp get_edge_values(tup, part), do: {elem(tup, part - 1), elem(tup, part)}
+
   def find({}, {}), do: 0
 
   def find(tup1, tup2) do
